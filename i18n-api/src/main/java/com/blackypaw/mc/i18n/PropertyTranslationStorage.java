@@ -7,11 +7,8 @@
 
 package com.blackypaw.mc.i18n;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Locale;
@@ -25,7 +22,7 @@ import java.util.Properties;
  * @author BlackyPaw
  * @version 1.0
  */
-public class PropertyTranslationStorage extends TranslationStorageAdapter {
+public class  PropertyTranslationStorage extends TranslationStorageAdapter {
 
 	private final File baseDirectory;
 
@@ -65,7 +62,10 @@ public class PropertyTranslationStorage extends TranslationStorageAdapter {
 		// Clear any cached results:
 		this.translations.remove( locale );
 
-		try ( InputStream in = new BufferedInputStream( new FileInputStream( new File( this.baseDirectory, locale.getLanguage() + ".properties" ) ) ) ) {
+		try ( Reader in = new BufferedReader(
+				new InputStreamReader(new BufferedInputStream(
+						new FileInputStream( new File( this.baseDirectory, locale.getLanguage() + ".properties" ) )
+				), StandardCharsets.UTF_8) ) ) {
 			Properties properties = new Properties();
 			properties.load( in );
 			this.loadLanguage( locale, properties );
