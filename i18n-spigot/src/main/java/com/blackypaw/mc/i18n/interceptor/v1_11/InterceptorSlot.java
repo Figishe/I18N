@@ -122,7 +122,7 @@ public class InterceptorSlot extends InterceptorBase {
 					stack.setItemMeta( meta );
 					
 					// Convert Bukkit ItemStack to NMS:
-					items.set( i, converter.getGeneric( converter.getSpecificType(), stack ) );
+					items.set( i, converter.getGeneric( stack ) );
 					
 					changed = true;
 				}
