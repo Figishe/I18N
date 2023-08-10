@@ -161,6 +161,7 @@ public class I18NSpigotAdapter extends JavaPlugin {
 		final PluginManager pluginManager = this.getServer().getPluginManager();
 		pluginManager.registerEvents( new PlayerLoginListener( this.i18n ), this );
 		pluginManager.registerEvents( new PlayerQuitListener( this.i18n ), this );
+		ProtocolLibrary.getProtocolManager().addPacketListener(new PlayerSettingsListener(this, this.i18n) );
 	}
 	
 	private void installInterceptors() {

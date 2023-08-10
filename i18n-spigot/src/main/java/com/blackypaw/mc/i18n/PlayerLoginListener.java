@@ -42,6 +42,8 @@ class PlayerLoginListener implements Listener {
 	@EventHandler( priority = EventPriority.LOWEST, ignoreCancelled = true )
 	public void onPlayerLogin( PlayerLoginEvent event ) {
 		Player player = event.getPlayer();
+
+		// TODO: new locale resolver? spigot-specific
 		Locale locale = this.i18n.getLocaleResolver().resolveLocale( player.getUniqueId() );
 		this.i18n.storeLocale( player.getUniqueId(), locale );
 	}
