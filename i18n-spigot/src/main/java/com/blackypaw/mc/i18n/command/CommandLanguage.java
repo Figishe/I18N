@@ -61,7 +61,7 @@ public class CommandLanguage implements CommandExecutor {
 			// Match ISO language code:
 			String iso = args[0];
 			if ( !iso.matches( "^[a-zA-Z]{2}$" ) ) {
-				player.sendMessage( this.commonLocalizer.translateDirect( locale, "com.blackypaw.mc.i18n.command.language.fail" ) );
+				player.sendMessage( this.commonLocalizer.translateDirect( locale, "com.blackypaw.mc.i18n.command.language.fail_iso" ) );
 				return true;
 			}
 			
