@@ -56,7 +56,8 @@ class PlayerQuitListener implements Listener {
 	}
 
 	private void onPlayerLeft( Player player ) {
-		this.i18n.unstoreLocale( player.getUniqueId() );
+		// commented to save player's language between rejoins
+		// this.i18n.unstoreLocale( player.getUniqueId() );
 	}
 
 }
