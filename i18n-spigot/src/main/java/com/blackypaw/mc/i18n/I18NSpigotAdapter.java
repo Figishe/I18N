@@ -175,9 +175,7 @@ public class I18NSpigotAdapter extends JavaPlugin {
 		
 		if ( version.getMajor() == 1 ) {
 			// Full Version:
-			if ( version.getMinor() == 20 ) {
-				basePackage += "v1_20";
-			} else if ( version.getMinor() == 12 || version.getMinor() == 11 ) {
+			if ( version.getMinor() == 12 || version.getMinor() == 11 ) {
 				basePackage += "v1_11";
 			} else if ( version.getMinor() == 10 ) {
 				basePackage += "v1_10";
@@ -197,7 +195,7 @@ public class I18NSpigotAdapter extends JavaPlugin {
 		}
 		
 		if ( basePackage == null ) {
-			this.getLogger().log( Level.SEVERE, "Failed to instantiate interceptors: this build supports Minecraft versions 1.8 - 1.12 + 1.20; please consider switching to the compatible version" );
+			this.getLogger().log( Level.SEVERE, "Failed to instantiate interceptors: this build supports Minecraft versions 1.8 - 1.12; please consider switching to the compatible version" );
 			return;
 		}
 		
