@@ -1,10 +1,12 @@
 package com.blackypaw.mc.i18n;
 
+import com.blackypaw.mc.i18n.event.PlayerSetLanguageEvent;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListeningWhitelist;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.events.PacketListener;
 import com.comphenix.protocol.injector.GamePhase;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -46,6 +48,13 @@ public class PlayerSettingsListener implements PacketListener
         plugin.getLogger().info(player.getName() + "'s language is now " + mctag);
         Locale locale = getPlayerLocaleByMcTag(mctag);
         i18n.storeLocale( player.getUniqueId(), locale );
+
+        // Call a player set language event so that other plugins can resend
+        // scoreboards, signs, etc.:
+        PlayerSetLanguageEvent event = new PlayerSetLanguageEvent( player, locale );
+        Bukkit.getServer().getScheduler().runTask(plugin,
+                () -> Bukkit.getServer().getPluginManager().callEvent( event )
+        );
     }
 
     private static Locale getPlayerLocaleByMcTag(String mctag)
