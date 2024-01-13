@@ -85,6 +85,7 @@ public class I18NSpigotImpl implements InjectionAwareI18N<UUID> {
 	
 	@Override
 	public boolean trySetLocale( UUID key, Locale locale ) {
+		Locale prevLocale = getLocale(key);
 		if ( this.localeResolver.trySetPlayerLocale( key, locale ) ) {
 			this.storeLocale( key, locale );
 			
@@ -92,7 +93,7 @@ public class I18NSpigotImpl implements InjectionAwareI18N<UUID> {
 			// scoreboards, signs, etc.:
 			Player player = Bukkit.getPlayer( key );
 			if ( player != null ) {
-				PlayerSetLanguageEvent event = new PlayerSetLanguageEvent( player, locale );
+				PlayerSetLanguageEvent event = new PlayerSetLanguageEvent( player, prevLocale, locale );
 				Bukkit.getServer().getPluginManager().callEvent( event );
 			}
 			return true;

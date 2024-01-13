@@ -27,6 +27,7 @@ public final class PlayerSetLanguageEvent extends Event {
 
 	private final Player player;
 	private final Locale language;
+	private final Locale prevLanguage;
 
 	/**
 	 * Constructs a new player set language event. You should never call the event
@@ -36,8 +37,9 @@ public final class PlayerSetLanguageEvent extends Event {
 	 * @param player The player who set his language
 	 * @param language The language he / she set
 	 */
-	public PlayerSetLanguageEvent( Player player, Locale language ) {
+	public PlayerSetLanguageEvent( Player player, Locale prevLanguage, Locale language ) {
 		this.player = player;
+		this.prevLanguage = prevLanguage;
 		this.language = language;
 	}
 
@@ -57,6 +59,9 @@ public final class PlayerSetLanguageEvent extends Event {
 	 */
 	public Locale getLanguage() {
 		return this.language;
+	}
+	public Locale getPreviousLanguage() {
+		return this.prevLanguage;
 	}
 
 	@Override

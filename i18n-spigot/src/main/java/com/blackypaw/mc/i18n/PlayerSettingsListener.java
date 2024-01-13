@@ -47,11 +47,12 @@ public class PlayerSettingsListener implements PacketListener
 
         plugin.getLogger().info(player.getName() + "'s language is now " + mctag);
         Locale locale = getPlayerLocaleByMcTag(mctag);
+        Locale prevLocale = i18n.getLocale( player.getUniqueId() );
         i18n.storeLocale( player.getUniqueId(), locale );
 
         // Call a player set language event so that other plugins can resend
         // scoreboards, signs, etc.:
-        PlayerSetLanguageEvent event = new PlayerSetLanguageEvent( player, locale );
+        PlayerSetLanguageEvent event = new PlayerSetLanguageEvent( player, prevLocale, locale );
         Bukkit.getServer().getScheduler().runTask(plugin,
                 () -> Bukkit.getServer().getPluginManager().callEvent( event )
         );
