@@ -61,6 +61,11 @@ public class PlayerSettingsListener implements PacketListener
     private static Locale getPlayerLocaleByMcTag(String mctag)
     {
         int separatorPos = mctag.indexOf('_');
+        if (separatorPos < 0)
+        {
+            return Locale.forLanguageTag(mctag);
+        }
+
         Locale locale = Locale.forLanguageTag(mctag.substring(0, separatorPos));
         return locale;
     }
