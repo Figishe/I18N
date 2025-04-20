@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import java.lang.reflect.Field;
 import java.util.Locale;
 
 public class PlayerSettingsListener implements PacketListener
@@ -43,7 +44,18 @@ public class PlayerSettingsListener implements PacketListener
         }
 
         Player player = e.getPlayer();
-        String mctag = e.getPacket().getStrings().readSafely(0); // usually is en_US
+        Object clientInfo = e.getPacket().getModifier().read(0);
+
+        String mctag = "en_US"; // usually is en_US
+        try {
+            Field languageField = clientInfo.getClass().getDeclaredField("language"); // might also be "a"
+            languageField.setAccessible(true);
+            mctag = (String) languageField.get(clientInfo);
+        } catch (Exception ex) {
+            plugin.getLogger().warning("Failed to identify client's language by settings packet. Plugin is probably incompatible with the server API version. Since it is forked, only Figishe could fix this.");
+            ex.printStackTrace();
+            return;
+        }
 
         plugin.getLogger().info(player.getName() + "'s language is now " + mctag);
         Locale locale = getPlayerLocaleByMcTag(mctag);
