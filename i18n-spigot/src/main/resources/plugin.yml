@@ -1,5 +1,6 @@
 name: I18N
 version: ${project.version}${legacy-build-version-suffix}
+api-version: 1.21.1
 main: com.blackypaw.mc.i18n.I18NSpigotAdapter
 author: BlackyPaw
 description: API for more thorough internationalization of plugins
