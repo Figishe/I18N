@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 import java.util.Locale;
@@ -24,14 +25,16 @@ import java.util.Locale;
 class PlayerLoginListener implements Listener {
 
 	private I18NSpigotImpl i18n;
+	private I18NSpigotAdapter plugin;
 
 	/**
 	 * Constructs a new player login listener.
 	 *
 	 * @param i18n The I18N instance
 	 */
-	public PlayerLoginListener( I18NSpigotImpl i18n ) {
+	public PlayerLoginListener( I18NSpigotAdapter plugin, I18NSpigotImpl i18n ) {
 		this.i18n = i18n;
+		this.plugin = plugin;
 	}
 
 	/**
@@ -47,5 +50,15 @@ class PlayerLoginListener implements Listener {
 		//Locale locale = this.i18n.getLocaleResolver().resolveLocale( player.getUniqueId() );
 		//this.i18n.storeLocale( player.getUniqueId(), locale );
 	}
+
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent event) {
+		Player player = event.getPlayer();
+		String localeStr = player.getLocale();
+		plugin.getLogger().info(player.getName() + "'s language on join:  " + localeStr);
+		Locale locale = PlayerSettingsListener.getPlayerLocaleByMcTag(localeStr);
+		this.i18n.storeLocale(player.getUniqueId(), locale);
+	}
+
 
 }

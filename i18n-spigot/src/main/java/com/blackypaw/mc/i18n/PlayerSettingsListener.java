@@ -70,7 +70,7 @@ public class PlayerSettingsListener implements PacketListener
         );
     }
 
-    private static Locale getPlayerLocaleByMcTag(String mctag)
+    public static Locale getPlayerLocaleByMcTag(String mctag)
     {
         int separatorPos = mctag.indexOf('_');
         if (separatorPos < 0)
